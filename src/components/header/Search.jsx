@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import tmdbApi from "../../api/tmdbApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import "./_header.scss";
 
@@ -9,20 +9,17 @@ const Search = () => {
   const [keyword, setKeyword] = useState("");
   const [words, setWords] = useState("");
   const searchRef = useRef(null);
+  const debounceTimer = useRef(null);
 
   const debounce = (func, delay) => {
-    let timeId;
     return function (...args) {
-      clearTimeout(timeId);
-      timeId = setTimeout(() => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+      debounceTimer.current = setTimeout(() => {
         func(...args);
       }, delay);
     };
-  };
-
-  const inputHandler = (e) => {
-    setKeyword(e.target.value);
-    searchRef.current(e.target.value);
   };
 
   useEffect(() => {
@@ -38,14 +35,17 @@ const Search = () => {
       } catch (err) {
         console.log("未搜尋到相關電影...");
       }
-    }, 500);
-  }, []);
+    }, 300);
+  }, [keyword]);
 
   useEffect(() => {
-    if (words.length != 0) {
-      console.log(words);
-    }
+    console.log(words);
   }, [words]);
+
+  const inputHandler = (e) => {
+    setKeyword(e.target.value);
+    searchRef.current(e.target.value);
+  };
 
   const btnHandler = (e) => {
     e.preventDefault();
@@ -53,6 +53,9 @@ const Search = () => {
       navigate(`/DetailPage?keyword=${encodeURIComponent(keyword.trim())}`);
       setKeyword("");
       setWords([]);
+    }
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
     }
   };
 

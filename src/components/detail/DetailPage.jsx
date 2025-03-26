@@ -73,10 +73,6 @@ const DetailPage = () => {
     }
   }, [detail]);
 
-  useEffect(() => {
-    console.log(detail);
-  }, [detail]);
-
   return (
     <>
       {detail && (
