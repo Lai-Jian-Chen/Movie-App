@@ -1,0 +1,38 @@
+@use "../../../scss/" as *;
+
+.info {
+  @include flex(flex-start, space-between);
+  flex-wrap: wrap;
+  width: 100%;
+  height: auto;
+  font-size: 1.5rem;
+  padding: 0;
+  h4 {
+    padding-top: 1.6rem;
+    font-size: 1.2rem;
+    color: $title-color;
+  }
+  .staff {
+    overflow: hidden;
+  }
+  .section {
+    @include flex(flex-start, space-between);
+    width: 100%;
+    height: 100%;
+    .right_section,
+    .left_section {
+      @include flex(flex-start, flex-start);
+      flex-direction: column;
+      height: auto;
+    }
+    .right_section {
+      padding-right: 1.8rem;
+    }
+  }
+  .star {
+    position: relative;
+    top: 2.5px;
+    color: white;
+    margin-right: 3px;
+  }
+}

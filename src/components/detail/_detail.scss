@@ -1,0 +1,80 @@
+@use "../../scss/" as *;
+
+.detail_page {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -4;
+  @include flex(center, center);
+  .background_img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center top;
+    z-index: inherit;
+    &::after {
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      content: "";
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.5)
+      );
+    }
+  }
+  .detail_body {
+    width: 1000px;
+    height: auto;
+    @include flex(center, flex-start);
+    position: relative;
+    z-index: -3;
+    top: 10px;
+    left: 0;
+    flex-wrap: wrap;
+    background-color: rgba(0, 0, 0, 0.55);
+    .movie_poster {
+      width: auto;
+      height: 100%;
+      img {
+        width: 100%;
+        height: auto;
+      }
+      .poster_fallback {
+        width: 500px;
+        height: 750px;
+        @include flex(center, center);
+        font-size: 2.5rem;
+      }
+    }
+    .detail_font {
+      max-width: 50%;
+      height: 100%;
+      padding: 0.8rem 1.8rem;
+      @include flex(flex-start, flex-start);
+      flex-direction: column;
+      h1 {
+        margin: 0;
+        font-size: 3.5rem;
+        color: $title-color;
+        font-weight: 400;
+        letter-spacing: 0.08em;
+      }
+      .movie_overview {
+        overflow-y: auto;
+        margin-top: 3.5rem;
+        height: 192px;
+        // border: 0.1px solid $title-color;
+        &::-webkit-scrollbar {
+          width: 5px;
+          background-color: rgba(134, 134, 134, 0.554);
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+}

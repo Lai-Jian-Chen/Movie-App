@@ -1,0 +1,84 @@
+@use "../../scss/" as *;
+.homePage {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -5;
+  cursor: pointer;
+  .backgroundCarousel {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    .carousel-slide {
+      position: absolute;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center top;
+      z-index: 0;
+      opacity: 0;
+      transform: scale(1.1);
+      transition: opacity 1s ease, transform 1s ease;
+      &::after {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        content: "";
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0.5)
+        );
+      }
+    }
+    .carousel-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+    }
+  }
+  .movieTitle {
+    position: absolute;
+    top: 47vh;
+    left: 6vw;
+    z-index: 5;
+    opacity: 0.8;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 1s ease;
+    .title {
+      font-size: 78px;
+    }
+    .average_star {
+      @include flex(flex-start, flex-start);
+      height: 2rem;
+      margin-left: 15px;
+      .star {
+        color: gold;
+        margin-right: 0.5rem;
+        width: auto;
+        height: 100%;
+      }
+      .average {
+        font-size: 1.8rem;
+        width: auto;
+        height: 100%;
+        position: relative;
+        top: -6px;
+      }
+    }
+    &.slide-in {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    &.slide-out {
+      opacity: 0.8;
+      transform: translateY(0);
+    }
+  }
+}
