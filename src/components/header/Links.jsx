@@ -6,8 +6,8 @@ const Links = () => {
   return (
     <div className="links">
       <Link to={"/"}>Home</Link>
-      <a href="">About</a>
       <a href="">View Code</a>
+      <a href="">Developer</a>
     </div>
   );
 };

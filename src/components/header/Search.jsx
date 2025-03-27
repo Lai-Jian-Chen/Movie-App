@@ -38,10 +38,6 @@ const Search = () => {
     }, 300);
   }, [keyword]);
 
-  useEffect(() => {
-    console.log(words);
-  }, [words]);
-
   const inputHandler = (e) => {
     setKeyword(e.target.value);
     searchRef.current(e.target.value);

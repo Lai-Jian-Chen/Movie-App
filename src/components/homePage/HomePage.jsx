@@ -29,7 +29,6 @@ const MainBody = () => {
         const next = prev === movies.length - 1 ? 0 : prev + 1;
         return next;
       });
-      console.log(movies);
     }, 5000);
     return () => clearInterval(interval);
   }, [movies]);
