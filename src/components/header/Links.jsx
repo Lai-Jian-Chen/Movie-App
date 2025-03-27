@@ -6,8 +6,12 @@ const Links = () => {
   return (
     <div className="links">
       <Link to={"/"}>Home</Link>
-      <a href="">View Code</a>
-      <a href="">Developer</a>
+      <a href="https://github.com/Lai-Jian-Chen/Movie-App" target={"_blank"}>
+        View Code
+      </a>
+      <a href="#" onClick={(e) => e.preventDefault()}>
+        Developer
+      </a>
     </div>
   );
 };

@@ -54,6 +54,9 @@
     .title {
       font-size: 78px;
       cursor: pointer;
+      &:hover {
+        color: rgb(0, 255, 115);
+      }
     }
     .average_star {
       @include flex(flex-start, flex-start);
