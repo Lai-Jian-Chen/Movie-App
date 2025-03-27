@@ -4,8 +4,9 @@
   background-color: rgba($color: #000000, $alpha: 0.4);
   @include flex(center, space-between);
   flex-wrap: wrap;
+  max-width: 100vw;
   min-width: 100vw;
-  height: auto;
+  height: 5.7vh;
   backdrop-filter: blur(5px);
   position: relative;
   z-index: 10;
@@ -84,6 +85,7 @@
     @include flex(center, flex-start);
     padding-right: 2rem;
     a {
+      flex: 1;
       color: unset;
       cursor: pointer;
       text-decoration: none;
