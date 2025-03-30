@@ -46,9 +46,8 @@ const MovieTitle = ({ movies, currentIndex }) => {
           )
         }
       >
-        {Title[currentIndex]}
+        {Title[0]}
       </h1>
-
       <div className="average_star">
         <GiRoundStar className="star" />
         <h3 className="average">{movieAverage[currentIndex]}</h3>

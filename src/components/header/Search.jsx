@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import tmdbApi from "../../api/tmdbApi";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import "./_header.scss";
 
@@ -27,7 +27,7 @@ const Search = () => {
       const params = { query: text };
       try {
         const res = await tmdbApi.searchMovie({ params });
-        const topResults = res.data.results.slice(0, 4);
+        const topResults = res.data.results.slice(0, 5);
         const movieTitle = topResults.map((result) => {
           return result.title;
         });
@@ -57,31 +57,35 @@ const Search = () => {
 
   return (
     <form action="">
-      <button type="submit" className="search_btn" onClick={btnHandler}>
-        <CiSearch id="search_icon" />
-      </button>
-      <input
-        type="text"
-        className="search_input"
-        placeholder="搜尋"
-        onChange={inputHandler}
-        value={keyword}
-      />
+      <div className="input_group">
+        <button type="submit" className="search_btn" onClick={btnHandler}>
+          <CiSearch id="search_icon" />
+        </button>
+        <input
+          type="text"
+          className="search_input"
+          placeholder="搜尋"
+          onChange={inputHandler}
+          value={keyword}
+        />
+      </div>
       {words.length > 0 && (
         <ul className="search_list">
           {words.map((word) => {
             return (
-              <li
-                key={Math.random()}
-                onClick={() => {
-                  navigate(
-                    `/DetailPage?keyword=${encodeURIComponent(word.trim())}`
-                  );
-                  setKeyword("");
-                  setWords([]);
-                }}
-              >
-                {word}
+              <li key={Math.random()}>
+                <span
+                  key={Math.random()}
+                  onClick={() => {
+                    navigate(
+                      `/DetailPage?keyword=${encodeURIComponent(word.trim())}`
+                    );
+                    setKeyword("");
+                    setWords([]);
+                  }}
+                >
+                  {word}
+                </span>
               </li>
             );
           })}

@@ -1,0 +1,19 @@
+@use "./variables" as *;
+
+@mixin mobile {
+  @media screen and (max-width: $mobile-width) {
+    @content;
+  }
+}
+
+@mixin search_convert {
+  @media screen and (max-width: $search_convert) {
+    @content;
+  }
+}
+
+@mixin detail_convert {
+  @media screen and (max-width: $detail_convert) {
+    @content;
+  }
+}

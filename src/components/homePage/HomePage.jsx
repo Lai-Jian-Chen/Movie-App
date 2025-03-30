@@ -23,15 +23,15 @@ const MainBody = () => {
     fetchMovies();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        const next = prev === movies.length - 1 ? 0 : prev + 1;
-        return next;
-      });
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [movies]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentIndex((prev) => {
+  //       const next = prev === movies.length - 1 ? 0 : prev + 1;
+  //       return next;
+  //     });
+  //   }, 5000);
+  //   return () => clearInterval(interval);
+  // }, [movies]);
 
   return (
     <div className="homePage">

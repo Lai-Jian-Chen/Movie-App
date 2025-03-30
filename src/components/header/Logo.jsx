@@ -3,11 +3,7 @@ import LogoImg from "../../assets/TMDB_Logo.png";
 import "./_header.scss";
 
 const Logo = () => {
-  return (
-    <div className="logo">
-      <img src={LogoImg} alt="TMDB_Logo" />
-    </div>
-  );
+  return <img className="logo" src={LogoImg} alt="TMDB_Logo" />;
 };
 
 export default Logo;

@@ -4,7 +4,7 @@ import "./_detail.scss";
 const Overview = ({ overview }) => {
   return (
     <div>
-      <div className="movie_overview"> {overview}</div>
+      <div className="overview"> {overview}</div>
     </div>
   );
 };

@@ -1,0 +1,102 @@
+@use "../../../scss/" as *;
+
+.SearchBtn {
+  display: none;
+  @include search_convert {
+    display: block;
+  }
+  .open_btn {
+    border: none;
+    color: inherit;
+    background-color: transparent;
+    outline: none;
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    height: 2rem;
+    &.open {
+      display: none;
+    }
+    .open_icon {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .Pagination {
+    // display: none;
+    @include flex(flex-start, flex-start);
+    flex-direction: column;
+    background-color: $Mobile-menu-bg;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease-in-out, opacity 0.1s ease-in-out;
+    &.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+    .back_btn {
+      margin: 5px;
+      color: $black;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    form {
+      width: 100%;
+      height: 40px;
+      @include flex(center, flex-start);
+      flex-direction: column;
+      padding: 0 30px 0 30px;
+      .input_group {
+        @include flex(center, center);
+        .search_btn {
+          height: 90%;
+          width: 12%;
+          border: none;
+          color: $black;
+          background-color: transparent;
+          outline: none;
+          cursor: pointer;
+          #search_icon {
+            width: 100%;
+            height: 100%;
+            color: inherit;
+          }
+        }
+        .search_input {
+          width: 80%;
+          font-size: 1.3rem;
+          border: none;
+          outline: none;
+          background-color: transparent;
+          border-bottom: 2px solid rgba($color: #2c2c2c, $alpha: 0.5);
+          &::placeholder {
+            opacity: 0.45;
+            color: inherit;
+            padding-left: 5px;
+          }
+        }
+      }
+      .search_list {
+        width: 100%;
+        li {
+          color: $black;
+          font-size: 1.2rem;
+          list-style: none;
+          cursor: pointer;
+          padding: 3px 0;
+          margin: 5px 0;
+          border-bottom: 1px solid rgba($color: #000000, $alpha: 0.3);
+        }
+      }
+    }
+  }
+}
