@@ -79,12 +79,12 @@ const SearchBtn = () => {
             <button
               type="submit"
               className="search_btn"
-              onClick={() => {
-                btnHandler;
+              onClick={(e) => {
+                btnHandler(e);
                 setIsOpen(!isOpen);
               }}
             >
-              <CiSearch id="search_icon" />
+              <CiSearch className="search_icon" />
             </button>
             <input
               type="text"
@@ -98,21 +98,18 @@ const SearchBtn = () => {
             <ul className="search_list">
               {words.map((word) => {
                 return (
-                  <li key={Math.random()}>
-                    <span
-                      onClick={() => {
-                        navigate(
-                          `/DetailPage?keyword=${encodeURIComponent(
-                            word.trim()
-                          )}`
-                        );
-                        setKeyword("");
-                        setWords([]);
-                        setIsOpen(!isOpen);
-                      }}
-                    >
-                      {word}
-                    </span>
+                  <li
+                    key={Math.random()}
+                    onClick={() => {
+                      navigate(
+                        `/DetailPage?keyword=${encodeURIComponent(word.trim())}`
+                      );
+                      setKeyword("");
+                      setWords([]);
+                      setIsOpen(!isOpen);
+                    }}
+                  >
+                    <span>{word}</span>
                   </li>
                 );
               })}

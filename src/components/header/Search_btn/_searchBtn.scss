@@ -65,7 +65,7 @@
           background-color: transparent;
           outline: none;
           cursor: pointer;
-          #search_icon {
+          .search_icon {
             width: 100%;
             height: 100%;
             color: inherit;
@@ -87,13 +87,14 @@
       }
       .search_list {
         width: 100%;
+        margin-top: 20px;
         li {
           color: $black;
           font-size: 1.2rem;
           list-style: none;
           cursor: pointer;
-          padding: 3px 0;
-          margin: 5px 0;
+          padding: 3px 10px;
+          margin: 5px 30px;
           border-bottom: 1px solid rgba($color: #000000, $alpha: 0.3);
         }
       }

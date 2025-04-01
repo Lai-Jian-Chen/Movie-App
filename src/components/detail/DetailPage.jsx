@@ -5,8 +5,8 @@ import tmdbApi from "../../api/tmdbApi";
 import apiConfig from "../../api/apiConfig";
 import "./_detail.scss";
 import Poster from "./Poster";
-import Overview from "./Overview";
 import Info from "./Infos/Info";
+import FlipCard from "./flipCard/FlipCard";
 
 const DetailPage = () => {
   const navigate = useNavigate();
@@ -84,11 +84,16 @@ const DetailPage = () => {
           <div className="detail_body">
             <Poster result={result} />
             <div className="detail_font">
-              <h1>{detail?.title}</h1>
               <Info detail={detail} staff={staff} />
-              <Overview overview={detail.overview} />
+              <div className="overview">{detail.overview}</div>
             </div>
           </div>
+          <FlipCard
+            result={result}
+            detail={detail}
+            staff={staff}
+            overview={detail.overview}
+          />
         </div>
       )}
     </>

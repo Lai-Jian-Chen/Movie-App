@@ -1,0 +1,76 @@
+@use "../../../scss/" as *;
+
+.Flip {
+  display: none;
+  perspective: 3000px;
+  margin-top: 25px;
+  width: 520px;
+  height: 774px;
+  transform: scale(0.9);
+  &.flipped .card {
+    transform: rotateY(180deg);
+    box-shadow: -6px 4px 16px rgb(0, 0, 0);
+  }
+  @include detail_convert {
+    display: block;
+  }
+  .card {
+    width: 520px;
+    height: 774px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    box-shadow: 4px 6px 16px rgb(24, 24, 24);
+    border-radius: 10px;
+    background-color: rgba($color: #000000, $alpha: 0.6);
+    .front,
+    .back {
+      position: absolute;
+      min-width: 100%;
+      min-height: 100%;
+      backface-visibility: hidden;
+    }
+    .front {
+      @include flex(center, center);
+      transform: rotateY(-180deg);
+    }
+    .back {
+      flex-direction: column;
+      padding: 1.5rem 2rem;
+    }
+    .overview {
+      padding: 0 10px;
+      margin-top: 1.2rem;
+      overflow-y: auto;
+      max-height: 295px;
+      font-size: 1.28rem;
+      &::-webkit-scrollbar {
+        width: 5px;
+        background-color: rgba(0, 0, 0, 0.554);
+        border-radius: 2px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(134, 134, 134, 0.753);
+        border-radius: 2px;
+      }
+    }
+  }
+  @media screen and (max-width: 560px) {
+    transform: scale(0.8);
+  }
+  @media screen and (max-width: 490px) {
+    transform: scale(0.7);
+  }
+  @media screen and (max-width: 440px) {
+    transform: scale(0.6);
+  }
+  @media screen and (max-width: 375px) {
+    transform: scale(0.5);
+  }
+  @media screen and (max-width: 310px) {
+    transform: scale(0.45);
+  }
+  @media screen and (max-width: 270px) {
+    transform: scale(0.4);
+  }
+}

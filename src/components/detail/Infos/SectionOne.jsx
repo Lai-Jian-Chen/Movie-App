@@ -23,7 +23,6 @@ const SectionOne = ({ detail }) => {
       </div>
       <div>
         <h4>評分: </h4>
-        <GiRoundStar className="star" />
         {score}/10
       </div>
     </section>
