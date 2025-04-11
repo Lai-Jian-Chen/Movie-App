@@ -32,7 +32,7 @@ const info = ({ detail, staff, flip }) => {
       <div className="upper_part">
         <div ref={containerRef} className="marquee_wrapper">
           <div className={`marquee_inner ${isOverflowing ? "marquee" : ""}`}>
-            <h1 ref={titleRef}>{detail.title}</h1>
+            <h1 ref={titleRef}>{detail?.title}</h1>
             {isOverflowing && <h1 aria-hidden="true">{detail.title}</h1>}
           </div>
         </div>

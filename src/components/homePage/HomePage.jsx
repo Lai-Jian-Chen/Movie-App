@@ -3,8 +3,9 @@ import tmdbApi, { movieType } from "../../api/tmdbApi";
 import BackgroundCarousel from "./BackgroundCarousel";
 import "./_homePage.scss";
 import MovieTitle from "./MovieTitle";
+import MobileFlipCard from "./MobileFlipCard/MobileFlipCard";
 
-const MainBody = () => {
+const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -23,22 +24,23 @@ const MainBody = () => {
     fetchMovies();
   }, []);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrentIndex((prev) => {
-  //       const next = prev === movies.length - 1 ? 0 : prev + 1;
-  //       return next;
-  //     });
-  //   }, 5000);
-  //   return () => clearInterval(interval);
-  // }, [movies]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const next = prev === movies.length - 1 ? 0 : prev + 1;
+        return next;
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [movies]);
 
   return (
     <div className="homePage">
       <BackgroundCarousel movies={movies} currentIndex={currentIndex} />
       <MovieTitle movies={movies} currentIndex={currentIndex} />
+      {movies.length > 0 && <MobileFlipCard movies={movies} />}
     </div>
   );
 };
 
-export default MainBody;
+export default HomePage;

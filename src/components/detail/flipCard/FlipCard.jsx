@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./_flipCard.scss";
 import Info from "../Infos/Info";
 import Poster from "../Poster";
 import "../../../scss/_index.scss";
 
-const FlipCard = ({ result, detail, staff, overview }) => {
+const FlipCard = ({ isActive, result, detail, staff, overview }) => {
   const [flip, setFlip] = useState(true);
 
   return (
-    <div className={`Flip ${flip ? "flipped" : ""}`}>
+    <div
+      className={`Flip ${flip ? "flipped" : ""} ${
+        isActive ? "active" : "none"
+      }`}
+    >
       <div className="card">
         <div
           className="front"

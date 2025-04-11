@@ -15,7 +15,7 @@ const DetailPage = () => {
   const [result, setResult] = useState({});
   const [movieOriginal, setMovieOriginal] = useState(null);
   const [detail, setDetail] = useState(null);
-  const [staff, setStaff] = useState("");
+  const [staff, setStaff] = useState(null);
 
   useEffect(() => {
     const params = { query: keyword };
@@ -60,7 +60,7 @@ const DetailPage = () => {
           setStaff(res.data);
         } catch (err) {
           console.log(err);
-          console.log("蒐集幕後人員資訊失敗");
+          console.log("蒐集演員資訊失敗");
         }
       };
       fetchStaff();

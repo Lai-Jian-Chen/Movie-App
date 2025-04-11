@@ -6,7 +6,11 @@
   inset: 0;
   z-index: -5;
   .backgroundCarousel {
+    @include mobile {
+      display: none;
+    }
     position: absolute;
+    z-index: -1;
     inset: 0;
     width: 100vw;
     height: auto;
@@ -35,19 +39,22 @@
           rgba(0, 0, 0, 0.5)
         );
       }
-    }
-    .carousel-slide.active {
-      position: relative;
-      overflow: hidden;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      opacity: 1;
-      transform: scale(1);
-      z-index: 1;
+      &.active {
+        position: relative;
+        overflow: hidden;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        opacity: 1;
+        transform: scale(1);
+        z-index: 1;
+      }
     }
   }
   .movieTitle {
+    @include mobile {
+      display: none;
+    }
     position: absolute;
     top: 47vh;
     left: 6vw;
