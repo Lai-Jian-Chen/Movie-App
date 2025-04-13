@@ -1,69 +1,49 @@
 import React, { useState, useEffect } from "react";
 import FlipCard from "../../detail/flipCard/FlipCard";
 import tmdbApi from "../../../api/tmdbApi";
-import apiConfig from "../../../api/apiConfig";
+import SlideWrapper from "../mobileFlipCard/SlideWrapper";
 import "./_mobileFlipCard.scss";
 
-const MobileFlipCard = ({ movies }) => {
+export const MobileFlipCard = ({ movies }) => {
   const [currentIndex, setCurrentIndex] = useState(1);
+  const [detail, setDetail] = useState("");
+  const [staff, setStaff] = useState(null);
   const [touchStartX, setTouchStartX] = useState(0);
   const [isTransitioning, setTransition] = useState(true);
-  const [bufferData, setBufferData] = useState({});
+  const [prevIndex, setPrevIndex] = useState(null);
+  const [realIndex, setRealIndex] = useState(currentIndex);
+  const [lockRealIndex, setLockRealIndex] = useState(false);
 
   const extendedMovies = [movies[movies.length - 1], ...movies, movies[0]];
 
-  const safeIndex = (i) => {
-    if (i < 0) return extendedMovies.length - 2;
-    if (i >= extendedMovies.length) return 1;
-    return i;
-  };
-
-  const fetchAll = async (index) => {
-    const indices = [
-      safeIndex(index),
-      safeIndex(index - 1),
-      safeIndex(index + 1),
-    ];
-
-    const newData = {};
-
-    for (let idx of indices) {
-      const id = extendedMovies[idx].id;
-      if (!bufferData[id]) {
-        try {
-          const detailRes = await tmdbApi.getDetail(id, {
-            params: {},
-          });
-          const staffRes = await tmdbApi.getCredits(id, {
-            params: {},
-          });
-          newData[id] = {
-            detail: detailRes.data,
-            staff: staffRes.data,
-          };
-        } catch (err) {
-          console.log("預抓資料失敗");
-          console.log(err);
-        }
-      }
+  const handlerNext = (e) => {
+    setTransition(true);
+    setPrevIndex(currentIndex);
+    const nextIndex = currentIndex + 1;
+    if (nextIndex === extendedMovies.length - 1) {
+      setRealIndex(1);
+      setLockRealIndex(true);
+    } else if (!lockRealIndex) {
+      setRealIndex(nextIndex);
     }
-    setBufferData((prev) => ({ ...prev, ...newData }));
+    setCurrentIndex((prev) => {
+      return (prev + 1) % extendedMovies.length;
+    });
   };
 
-  useEffect(() => {
-    fetchAll(currentIndex);
-  }, [currentIndex]);
-
-  const shouldRender = (index) => {
-    const lastRealIndex = extendedMovies.length - 2;
-
-    return (
-      index === currentIndex ||
-      index === currentIndex - 1 ||
-      index === currentIndex + 1 ||
-      (currentIndex === 0 && index === lastRealIndex) ||
-      (currentIndex === extendedMovies.length - 1 && index === 1)
-    );
+  const handlerPrev = (e) => {
+    setTransition(true);
+    setPrevIndex(currentIndex);
+    const prevIndex = currentIndex - 1;
+    if (prevIndex === 0) {
+      setRealIndex(extendedMovies.length - 2);
+      setLockRealIndex(true);
+    } else if (!lockRealIndex) {
+      setRealIndex(prevIndex);
+    }
+    setCurrentIndex((prev) => {
+      return prev === 0 ? extendedMovies.length - 1 : prev - 1;
+    });
   };
 
   useEffect(() => {
@@ -71,15 +51,16 @@ const MobileFlipCard = ({ movies }) => {
       setTimeout(() => {
         setTransition(false);
         setCurrentIndex(extendedMovies.length - 2);
-      }, 300);
+        setLockRealIndex(false);
+      }, 400);
     }
     if (currentIndex === extendedMovies.length - 1) {
       setTimeout(() => {
         setTransition(false);
         setCurrentIndex(1);
-      }, 300);
+        setLockRealIndex(false);
+      }, 400);
     }
-    setTransition(true);
   }, [currentIndex]);
 
   const handleTouchStart = (e) => {
@@ -98,58 +79,56 @@ const MobileFlipCard = ({ movies }) => {
     }
   };
 
-  const handlerNext = async (e) => {
-    const nextIndex = safeIndex(currentIndex + 1);
-    await fetchAll(nextIndex);
-    setCurrentIndex((prev) => {
-      return (prev + 1) % extendedMovies.length;
-    });
-  };
-
-  const handlerPrev = async (e) => {
-    const prevIndex = safeIndex(currentIndex - 1);
-    await fetchAll(prevIndex);
-    setCurrentIndex((prev) => {
-      return prev === 0 ? extendedMovies.length - 1 : prev - 1;
-    });
-  };
+  useEffect(() => {
+    const fetchDetail = async () => {
+      try {
+        const res = await tmdbApi.getDetail(extendedMovies[currentIndex].id, {
+          params: {},
+        });
+        setDetail(res.data);
+      } catch (err) {
+        console.log("搜尋電影資訊失敗");
+        console.log(err);
+      }
+    };
+    fetchDetail();
+  }, [movies, currentIndex]);
 
   useEffect(() => {
-    const indices = [
-      safeIndex(currentIndex),
-      safeIndex(currentIndex - 1),
-      safeIndex(currentIndex + 1),
-    ];
-    indices.forEach((i) => {
-      const id = extendedMovies[i].id;
-      if (!bufferData[id]) {
-        console.log(`❌ 卡片 ${i}（ID: ${id}）還沒準備好`);
-      } else {
-        console.log(`✅ 卡片 ${i}（ID: ${id}）準備好了`);
-      }
-    });
-  }, [currentIndex]);
+    if (detail) {
+      const fetchStaff = async () => {
+        try {
+          const res = await tmdbApi.getCredits(
+            extendedMovies[currentIndex].id,
+            {
+              params: {},
+            }
+          );
+          setStaff(res.data);
+        } catch (err) {
+          console.log(err);
+          console.log("蒐集演員資訊失敗");
+        }
+      };
+      fetchStaff();
+    }
+  }, [movies, currentIndex]);
+
+  useEffect(() => {}, []);
 
   return (
     <div className="MobileFlipCard">
-      {extendedMovies.map((movie, index) => {
-        const img = apiConfig.originalImage(movie?.backdrop_path);
-        return (
-          <div
-            key={`${movie.id}-${index}`}
-            style={{ backgroundImage: `url(${img})` }}
-            className={`carousel-slide ${
-              index === currentIndex ? "active" : ""
-            }`}
-          ></div>
-        );
-      })}
+      <SlideWrapper
+        extendedMovies={extendedMovies}
+        currentIndex={currentIndex}
+        realIndex={realIndex}
+      />
       <div className="group">
         <div
           className="slider_wrapper"
           style={{
             transform: `translateX(-${currentIndex * 100}%)`,
-            transition: isTransitioning ? "transform 0.3s ease-in-out" : "none",
+            transition: isTransitioning ? "transform 0.4s ease-in-out" : "none",
             width: `${extendedMovies.length * 100}%`,
           }}
           onTouchStart={handleTouchStart}
@@ -157,13 +136,12 @@ const MobileFlipCard = ({ movies }) => {
         >
           {extendedMovies.map((movie, index) => (
             <div className="slider_item" key={`${movie.id}-${index}`}>
-              {shouldRender(index) && bufferData[movie.id] && (
+              {(index === currentIndex || index === prevIndex) && (
                 <FlipCard
-                  isActive={index === currentIndex}
                   result={movie}
-                  detail={bufferData[movie.id].detail}
-                  staff={bufferData[movie.id].staff}
-                  overview={bufferData[movie.id].detail?.overview}
+                  detail={detail}
+                  staff={staff}
+                  overview={detail?.overview ?? ""}
                 />
               )}
             </div>

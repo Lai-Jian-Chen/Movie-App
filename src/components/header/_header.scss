@@ -15,10 +15,17 @@
       width: 100vw;
       @include flex(center, center);
     }
-    .logo {
-      margin: 5px 2rem;
-      max-width: 86px;
+    .Logo {
+      padding: 5px 2rem;
+      .logo_link {
+        display: inline;
+        .logo_img {
+          display: block;
+          max-width: 86px;
+        }
+      }
     }
+
     form {
       @include search_convert {
         display: none;

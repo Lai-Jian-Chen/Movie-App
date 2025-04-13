@@ -59,9 +59,9 @@
     top: 47vh;
     left: 6vw;
     z-index: 5;
-    opacity: 0.8;
+    opacity: 0.2;
     transform: translateY(0);
-    transition: opacity 0.6s ease, transform 1s ease;
+    transition: opacity 0.8s ease, transform 1s ease;
     .title {
       font-size: clamp(40px, 5vw, 78px);
       cursor: pointer;
@@ -88,7 +88,7 @@
       }
     }
     &.slide-in {
-      opacity: 1;
+      opacity: 0;
       transform: translateY(-30px);
     }
     &.slide-out {

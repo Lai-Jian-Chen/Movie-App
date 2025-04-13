@@ -14,7 +14,7 @@ const Poster = ({ result }) => {
       {moviePoster ? (
         <img src={moviePoster} />
       ) : (
-        <div className="poster_fallback">無圖片</div>
+        <div className="poster_fallback"></div>
       )}
     </div>
   );

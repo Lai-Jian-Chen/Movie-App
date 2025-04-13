@@ -30,7 +30,7 @@ const MovieTitle = ({ movies, currentIndex }) => {
     setTitleSlide("slide-out");
     const timer = setTimeout(() => {
       setTitleSlide("slide-in");
-    }, 4600);
+    }, 4300);
     return () => clearTimeout(timer);
   }, [currentIndex]);
 
@@ -46,7 +46,7 @@ const MovieTitle = ({ movies, currentIndex }) => {
           )
         }
       >
-        {Title[0]}
+        {Title[currentIndex]}
       </h1>
       <div className="average_star">
         <GiRoundStar className="star" />
