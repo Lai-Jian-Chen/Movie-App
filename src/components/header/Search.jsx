@@ -5,11 +5,15 @@ import { CiSearch } from "react-icons/ci";
 import "./_header.scss";
 
 const Search = () => {
-  const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
-  const [words, setWords] = useState("");
+  const [words, setWords] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const inputRef = useRef(null);
+  const suggestionRef = useRef(null);
   const searchRef = useRef(null);
   const debounceTimer = useRef(null);
+  const navigate = useNavigate();
 
   const debounce = (func, delay) => {
     return function (...args) {
@@ -32,15 +36,23 @@ const Search = () => {
           return result.title;
         });
         setWords(movieTitle);
+        setShowSuggestions(true);
       } catch (err) {
         console.log("未搜尋到相關電影...");
       }
     }, 300);
-  }, [keyword]);
+  }, []);
 
   const inputHandler = (e) => {
     setKeyword(e.target.value);
     searchRef.current(e.target.value);
+  };
+
+  const handleSelect = (word) => {
+    navigate(`/DetailPage?keyword=${encodeURIComponent(word.trim())}`);
+    setKeyword("");
+    setWords([]);
+    setShowSuggestions(false);
   };
 
   const btnHandler = (e) => {
@@ -55,6 +67,21 @@ const Search = () => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(e.target) &&
+        suggestionRef.current &&
+        !suggestionRef.current.contains(e.target)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
     <form action="">
       <div className="input_group">
@@ -67,23 +94,18 @@ const Search = () => {
           placeholder="搜尋"
           onChange={inputHandler}
           value={keyword}
+          ref={inputRef}
+          onFocus={() => {
+            if (keyword.trim().length > 0) setShowSuggestions(true);
+          }}
         />
       </div>
-      {words.length > 0 && (
-        <ul className="search_list">
+      {showSuggestions && words.length > 0 && (
+        <ul className="search_list" ref={suggestionRef}>
           {words.map((word) => {
             return (
-              <li key={Math.random()}>
-                <span
-                  key={Math.random()}
-                  onClick={() => {
-                    navigate(
-                      `/DetailPage?keyword=${encodeURIComponent(word.trim())}`
-                    );
-                    setKeyword("");
-                    setWords([]);
-                  }}
-                >
+              <li key={word}>
+                <span key={Math.random()} onClick={() => handleSelect(word)}>
                   {word}
                 </span>
               </li>

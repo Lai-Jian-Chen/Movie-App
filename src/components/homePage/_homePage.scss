@@ -65,8 +65,10 @@
     .title {
       font-size: clamp(40px, 5vw, 78px);
       cursor: pointer;
-      &:hover {
-        color: rgb(0, 255, 115);
+      @include hover_Desktop {
+        &:hover {
+          color: rgb(0, 255, 115);
+        }
       }
     }
     .average_star {
