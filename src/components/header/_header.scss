@@ -16,12 +16,15 @@
       @include flex(center, center);
     }
     .Logo {
-      padding: 5px 2rem;
+      padding: 8px 2rem 5px 2rem;
       .logo_link {
         display: inline;
         .logo_img {
           display: block;
-          max-width: 86px;
+          max-width: 115px;
+          @include mobile {
+            max-width: 86px;
+          }
         }
       }
     }
@@ -53,7 +56,7 @@
         }
         .search_input {
           width: 80%;
-          font-size: 1.1rem;
+          font-size: 1.3rem;
           border: none;
           color: inherit;
           background-color: transparent;
