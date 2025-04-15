@@ -61,7 +61,7 @@
     z-index: 5;
     opacity: 0.2;
     transform: translateY(0);
-    transition: opacity 0.8s ease, transform 1s ease;
+    transition: opacity 0.4s ease, transform 1s ease;
     .title {
       font-size: clamp(40px, 5vw, 78px);
       cursor: pointer;

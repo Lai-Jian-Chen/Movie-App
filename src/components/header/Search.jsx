@@ -104,10 +104,8 @@ const Search = () => {
         <ul className="search_list" ref={suggestionRef}>
           {words.map((word) => {
             return (
-              <li key={word}>
-                <span key={Math.random()} onClick={() => handleSelect(word)}>
-                  {word}
-                </span>
+              <li key={word} onClick={() => handleSelect(word)}>
+                <span key={Math.random()}>{word}</span>
               </li>
             );
           })}

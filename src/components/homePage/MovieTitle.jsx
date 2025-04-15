@@ -30,7 +30,7 @@ const MovieTitle = ({ movies, currentIndex }) => {
     setTitleSlide("slide-out");
     const timer = setTimeout(() => {
       setTitleSlide("slide-in");
-    }, 4300);
+    }, 4500);
     return () => clearTimeout(timer);
   }, [currentIndex]);
 
