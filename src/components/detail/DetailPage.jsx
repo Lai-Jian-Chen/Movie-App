@@ -15,7 +15,7 @@ const DetailPage = () => {
   const [result, setResult] = useState({});
   const [movieOriginal, setMovieOriginal] = useState(null);
   const [detail, setDetail] = useState(null);
-  const [staff, setStaff] = useState(null);
+  const [staff, setStaff] = useState({ cast: [] });
 
   useEffect(() => {
     const params = { query: keyword };

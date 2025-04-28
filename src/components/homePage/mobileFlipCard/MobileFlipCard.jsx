@@ -95,26 +95,19 @@ export const MobileFlipCard = ({ movies }) => {
   }, [movies, currentIndex]);
 
   useEffect(() => {
-    if (detail) {
-      const fetchStaff = async () => {
-        try {
-          const res = await tmdbApi.getCredits(
-            extendedMovies[currentIndex].id,
-            {
-              params: {},
-            }
-          );
-          setStaff(res.data);
-        } catch (err) {
-          console.log(err);
-          console.log("蒐集演員資訊失敗");
-        }
-      };
-      fetchStaff();
-    }
+    const fetchStaff = async () => {
+      try {
+        const res = await tmdbApi.getCredits(extendedMovies[currentIndex].id, {
+          params: {},
+        });
+        setStaff(res.data);
+      } catch (err) {
+        console.log(err);
+        console.log("蒐集演員資訊失敗");
+      }
+    };
+    fetchStaff();
   }, [movies, currentIndex]);
-
-  useEffect(() => {}, []);
 
   return (
     <div className="MobileFlipCard">

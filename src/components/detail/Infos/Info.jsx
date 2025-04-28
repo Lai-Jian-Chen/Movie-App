@@ -20,10 +20,12 @@ const info = ({ detail, staff, flip }) => {
   useEffect(() => {
     if (!!staff) {
       const actors = staff.cast.slice(0, 2);
-      const lead = actors.map((actor) => {
-        return actor.name;
-      });
-      setActor(lead);
+      if (actors.length === 0) {
+        setActor(["暫無資料"]);
+      } else {
+        const lead = actors.map((actor) => actor.name);
+        setActor(lead);
+      }
     }
   }, [staff]);
 
