@@ -6,8 +6,8 @@
   }
   perspective: 3000px;
   margin-top: 25px;
-  width: 520px;
-  height: 774px;
+  width: 526px;
+  height: 780px;
   transform: scale(0.9);
   position: relative;
   overflow: visible;
@@ -23,6 +23,7 @@
     overflow: visible;
     transition: transform 0.6s ease-in-out, box-shadow 0.6s ease-in-out;
     box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 
     .front,
     .back {
@@ -37,18 +38,18 @@
 
     .front {
       @include flex(center, center);
-      background-color: #000; /* 海報的背景 */
+      background-color: rgba(0, 0, 0, 0.7); /* 海報的背景 */
       transform: rotateY(0deg); /* 正面保持不翻轉 */
-      z-index: 2; /* 正面在翻轉前顯示 */
+      z-index: 1; /* 正面在翻轉前顯示 */
     }
 
     .back {
       display: flex;
       flex-direction: column;
       padding: 1.5rem 2rem;
-      background-color: rgba(0, 0, 0, 0.8); /* 背面背景 */
+      background-color: rgba(0, 0, 0, 0.7); /* 背面背景 */
       transform: rotateY(180deg); /* 背面翻轉 */
-      z-index: 1; /* 翻轉後顯示 */
+      z-index: 2; /* 翻轉後顯示 */
     }
 
     .overview {
