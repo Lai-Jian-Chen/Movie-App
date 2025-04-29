@@ -5,7 +5,7 @@ import SlideWrapper from "../mobileFlipCard/SlideWrapper";
 import "./_mobileFlipCard.scss";
 
 export const MobileFlipCard = ({ movies }) => {
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(2);
   const [detail, setDetail] = useState("");
   const [staff, setStaff] = useState(null);
   const [touchStartX, setTouchStartX] = useState(0);
@@ -63,21 +63,21 @@ export const MobileFlipCard = ({ movies }) => {
     }
   }, [currentIndex]);
 
-  const handleTouchStart = (e) => {
-    setTouchStartX(e.touches[0].clientX);
-  };
+  // const handleTouchStart = (e) => {
+  //   setTouchStartX(e.touches[0].clientX);
+  // };
 
-  const handleTouchEnd = (e) => {
-    const endX = e.changedTouches[0].clientX;
-    const diff = touchStartX - endX;
-    if (Math.abs(diff) > 70 && Math.abs(diff) < 350) {
-      if (diff > 0) {
-        handlerNext();
-      } else {
-        handlerPrev();
-      }
-    }
-  };
+  // const handleTouchEnd = (e) => {
+  //   const endX = e.changedTouches[0].clientX;
+  //   const diff = touchStartX - endX;
+  //   if (Math.abs(diff) > 70 && Math.abs(diff) < 350) {
+  //     if (diff > 0) {
+  //       handlerNext();
+  //     } else {
+  //       handlerPrev();
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     const fetchDetail = async () => {
@@ -124,8 +124,8 @@ export const MobileFlipCard = ({ movies }) => {
             transition: isTransitioning ? "transform 0.4s ease-in-out" : "none",
             width: `${extendedMovies.length * 100}%`,
           }}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+          // onTouchStart={handleTouchStart}
+          // onTouchEnd={handleTouchEnd}
         >
           {extendedMovies.map((movie, index) => (
             <div className="slider_item" key={`${movie.id}-${index}`}>

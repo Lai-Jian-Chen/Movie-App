@@ -5,6 +5,8 @@
   @include mobile {
     @include flex(center, center);
   }
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   position: absolute;
   inset: 0;
   z-index: -3;

@@ -5,7 +5,7 @@ import Poster from "../Poster";
 import "../../../scss/_index.scss";
 
 const FlipCard = ({ result, detail, staff, overview }) => {
-  const [flip, setFlip] = useState(true);
+  const [flip, setFlip] = useState(false);
 
   return (
     <div className={`Flip ${flip ? "flipped" : ""}`}>
