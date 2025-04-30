@@ -71,12 +71,15 @@
       }
       .search_list {
         position: absolute;
-        top: 43.9px;
+        top: 58px;
         padding: 0 0.7rem;
-        background-color: rgba($color: #000000, $alpha: 0.4);
+        background-color: rgba($color: #292929, $alpha: 0.4);
         border-radius: 2px;
         min-width: 200px;
         max-width: 200px;
+        @include mobile {
+          top: 47px;
+        }
         li {
           font-size: 1.2rem;
           list-style: none;

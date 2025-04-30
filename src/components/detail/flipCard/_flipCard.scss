@@ -50,6 +50,7 @@
       background-color: rgba(0, 0, 0, 0.7); /* 背面背景 */
       transform: rotateY(180deg); /* 背面翻轉 */
       z-index: 2; /* 翻轉後顯示 */
+      backdrop-filter: blur(4px);
     }
 
     .overview {
