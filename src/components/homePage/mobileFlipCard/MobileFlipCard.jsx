@@ -70,7 +70,7 @@ export const MobileFlipCard = ({ movies }) => {
   const handleTouchEnd = (e) => {
     const endX = e.changedTouches[0].clientX;
     const diff = touchStartX - endX;
-    if (Math.abs(diff) > 70 && Math.abs(diff) < 350) {
+    if (Math.abs(diff) > 30 && Math.abs(diff) < 350) {
       if (diff > 0) {
         handlerNext();
       } else {
